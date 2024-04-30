@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Shop {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'shop/style.css'%}"> 
+
+{% endblock %}
+
+{% block body %} 
+<div class="fullPageShop" style="margin: 40px;">
+    <br>
+    <br>
+    <div class="shop-heading" style="margin-left: 30px;">
+      <p>Home/ Shop </p>
+      <h1 style="font-size: 48px;">SHOP</h1>
+    </div>
+    <br>
+    
+    <div class="container" style="margin-bottom: 20px;">
+        <div class="results" style="margin-left: 20px;">Showing 20 results</div>
+        <div class="dropdown">
+          <button class="dropbtn">Default Sorting &#9660;</button>
+          <div class="dropdown-content">
+            <a href="#">Sort by Popularity</a>
+            <a href="#">Sort by Average Rating</a>
+            <a href="#">Sort by Latest</a>
+            <a href="#">Sort by Price: low to high</a>
+            <a href="#">Sort by Price: high to low</a>
+          </div>
+        </div>
+    </div>
+    <section class="text-gray-600 body-font">
+      <div class="container px-5 pb-24 mx-auto">
+          <div class="flex flex-wrap -m-4">
+            {% for i in products %}
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a href="{% url 'product_detail' i.id %}" class="block relative  rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="/media/{{i.image}}">
+                <div class="sale-button">Sale!</div>
+                <div class="add-to-cart cart" id="pr{{i.id}}">&#128722;</div>
+              </a>
+              <div class="mt-4">
+                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{i.category}}</h3> 
+                <h2 class="text-gray-900 title-font text-lg font-medium">{{i.name}}</h2>
+                <p class="mt-1">${{i.price}}</p>
+              </div>
+            </div>
+            {% endfor %}
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+  console.log('working');
+  if(localStorage.getItem('cart') == null) {
+      var cart = {};
+  } else {
+      cart = JSON.parse(localStorage.getItem('cart'));
+      document.getElementById('cart').innerHTML = Object.keys(cart).length;
+  }
+  
+  
+  $('.cart').click(function(event) {
+      event.preventDefault(); // Prevent default action of anchor tag
+      console.log('clicked');
+      var idstr = this.id.toString();
+      console.log(idstr);
+      if(cart[idstr] !== undefined) {
+          cart[idstr] = cart[idstr] + 1;
+      } else {
+          cart[idstr] = 1;
+      }
+      console.log(cart);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      document.getElementById('cart').innerHTML = Object.keys(cart).length;
+  });
+</script>
+{% endblock %}
