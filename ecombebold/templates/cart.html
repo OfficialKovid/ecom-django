@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Cart {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'shop/style.css'%}"> {% endblock %}
+
+{% block body %}
+<div class="fullPageCart" style="margin: 40px;">
+    <h1>Your Cart</h1>
+    <div class="cart-items">
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <img src="/media/{{ item.product.image }}" alt="{{ item.product.name }}">
+            <div class="details">
+                <h2>{{ item.product.name }}</h2>
+                <p>{{ item.product.description }}</p>
+                <p>Quantity: {{ item.quantity }}</p>
+                <p>Price: ${{ item.product.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
