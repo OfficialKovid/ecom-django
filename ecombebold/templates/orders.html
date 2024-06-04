@@ -55,36 +55,26 @@
 
 </style>
 {% endblock %}
-
 {% block body %} 
 <div class="orders-container">
+    {% for order in user_orders %}
     <div class="order">
-      <div class="order-details">
-        <img src="{% static 'ecom/img/product-1.jpg' %}" alt="Order #1 Image">
-        <div class="order-info">
-          <h3>Order #1</h3>
-          <p>Date: January 1, 2024</p>
-          <p>Items: Item 1, Item 2, Item 3</p>
-          <p>Total: $100.00</p>
-          <p>Status: Pending</p>
+        <div class="order-details">
+          {% for item in order.products.all %}
+          <img src="{{ item.image.url }}" alt="{{ item.name }}" width="100">
+          {% endfor %}
+            <div class="order-info">
+                <h3>Order #{{ order.id }}</h3>
+                <p>Items: {% for item in order.products.all %} {{ item.name }}, {% endfor %}</p>
+                <p>Total: ${{ order.total_price }}</p>
+                <p>Status: {{ order.status }}</p>
+              
+
+            </div>
         </div>
-      </div>
     </div>
-    
-    <div class="order">
-      <div class="order-details">
-        <img src="{% static 'ecom/img/product-2.jpg' %}" alt="Order #2 Image">
-        <div class="order-info">
-          <h3>Order #2</h3>
-          <p>Date: January 5, 2024</p>
-          <p>Items: Item 4, Item 5</p>
-          <p>Total: $50.00</p>
-          <p>Status: Shipped</p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Add more orders as needed -->
-  </div>
-  
+    {% empty %}
+    <p>No orders found.</p>
+    {% endfor %}
+</div>
 {% endblock %}

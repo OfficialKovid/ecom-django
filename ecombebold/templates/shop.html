@@ -32,19 +32,21 @@
       <div class="container px-5 pb-24 mx-auto">
           <div class="flex flex-wrap -m-4">
             {% for i in products %}
-            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-              <a href="{% url 'product_detail' i.id %}" class="block relative  rounded overflow-hidden">
-                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="/media/{{i.image}}">
-                <div class="sale-button">Sale!</div>
-                <div class="add-to-cart cart" id="pr{{i.id}}">&#128722;</div>
-              </a>
-              <div class="mt-4">
-                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{i.category}}</h3> 
-                <h2 class="text-gray-900 title-font text-lg font-medium">{{i.name}}</h2>
-                <p class="mt-1">${{i.price}}</p>
+        
+              <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                <a href="{% url 'product_detail' i.id %}" class="block relative rounded overflow-hidden">
+                  <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="/media/{{ i.image }}">
+                  <div class="sale-button">Sale!</div>
+                  <div class="add-to-cart cart" id="pr{{ i.id }}">&#128722;</div>
+                </a>
+                <div class="mt-4">
+                  <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ i.category }}</h3> 
+                  <h2 class="text-gray-900 title-font text-lg font-medium">{{ i.name }}</h2>
+                  <p class="mt-1">${{ i.price }}</p>
+                </div>
               </div>
-            </div>
-            {% endfor %}
+          {% endfor %}
+          
             </div>
             </div>
           </div>

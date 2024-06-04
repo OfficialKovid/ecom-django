@@ -15,5 +15,8 @@ path('logout/',logout_user, name = 'logout'),
 path('account/',account, name = 'account'),
 path('orders/',orders, name = 'orders'),
 path('product/<int:product_id>/', product_detail, name='product_detail'),
+path('order/<int:product_id>/', order_it, name='order'),
+path('place_order/', place_order, name='place_order'),
+
 
 ]
